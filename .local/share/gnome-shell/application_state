@@ -2,12 +2,13 @@
 <application-state>
   <context id="">
     <application id="org.gnome.Maps.desktop" score="5" last-seen="1689417578"/>
-    <application id="org.gnome.Nautilus.desktop" score="13" last-seen="1689421603"/>
+    <application id="org.gnome.Nautilus.desktop" score="13" last-seen="1689421762"/>
     <application id="org.gnome.Settings.desktop" score="32" last-seen="1689418401"/>
     <application id="org.manjaro.pamac.manager.desktop" score="39" last-seen="1689420303"/>
-    <application id="firefox.desktop" score="224" last-seen="1689421731"/>
-    <application id="org.gnome.Terminal.desktop" score="33" last-seen="1689421727"/>
+    <application id="firefox.desktop" score="229" last-seen="1689422036"/>
+    <application id="org.gnome.Terminal.desktop" score="66" last-seen="1689422029"/>
     <application id="org.gnome.gedit.desktop" score="3" last-seen="1689421563"/>
     <application id="org.gnome.gThumb.Import.desktop" score="0" last-seen="0"/>
+    <application id="org.gnome.Geary.desktop" score="0" last-seen="1689421923"/>
   </context>
 </application-state>

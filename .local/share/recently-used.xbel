@@ -43,12 +43,12 @@
       </metadata>
     </info>
   </bookmark>
-  <bookmark href="file:///home/manjaro/test/Empty%20File" added="2023-07-15T11:45:13.263863Z" modified="2023-07-15T11:45:13.263873Z" visited="2023-07-15T11:45:13.263865Z">
+  <bookmark href="file:///home/manjaro/test/Empty%20File" added="2023-07-15T11:45:13.263863Z" modified="2023-07-15T11:54:57.637513Z" visited="2023-07-15T11:45:13.263865Z">
     <info>
       <metadata owner="http://freedesktop.org">
         <mime:mime-type type="application/x-zerosize"/>
         <bookmark:applications>
-          <bookmark:application name="org.gnome.Nautilus" exec="&apos;org.gnome.Nautilus %u&apos;" modified="2023-07-15T11:45:13.263869Z" count="1"/>
+          <bookmark:application name="org.gnome.Nautilus" exec="&apos;org.gnome.Nautilus %u&apos;" modified="2023-07-15T11:54:57.637508Z" count="2"/>
         </bookmark:applications>
       </metadata>
     </info>
@@ -59,6 +59,16 @@
         <mime:mime-type type="text/x-python"/>
         <bookmark:applications>
           <bookmark:application name="gedit" exec="&apos;gedit %u&apos;" modified="2023-07-15T11:45:36.129765Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/manjaro/test/Empty%20Bash" added="2023-07-15T11:54:43.287889Z" modified="2023-07-15T11:54:43.287900Z" visited="2023-07-15T11:54:43.287892Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="application/octet-stream"/>
+        <bookmark:applications>
+          <bookmark:application name="org.gnome.Nautilus" exec="&apos;org.gnome.Nautilus %u&apos;" modified="2023-07-15T11:54:43.287895Z" count="1"/>
         </bookmark:applications>
       </metadata>
     </info>
