@@ -1,0 +1,788 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; object-src 'none'; script-src resource: chrome:; connect-src https:; img-src https: data: blob: chrome:; style-src 'unsafe-inline';">
+    <meta name="color-scheme" content="light dark">
+    <title data-l10n-id="newtab-page-title"></title>
+    <link rel="icon" type="image/png" href="chrome://branding/content/icon32.png"/>
+    <link rel="localization" href="branding/brand.ftl" />
+    <link rel="localization" href="toolkit/branding/brandings.ftl" />
+    <link rel="localization" href="browser/newtab/newtab.ftl" />
+    <link rel="stylesheet" href="chrome://browser/content/contentSearchUI.css" />
+    <link rel="stylesheet" href="chrome://activity-stream/content/css/activity-stream.css" />
+  </head>
+  <!-- Cached: Sat, 15 Jul 2023 11:35:16 GMT -->
+  <body class="activity-stream">
+    <div id="header-asrouter-container" role="presentation"></div>
+    <div id="root">
+      <div><span><button class="icon icon-settings personalize-button" data-l10n-id="newtab-personalize-icon-label"></button><div class="customize-menu" role="dialog" data-l10n-id="newtab-personalize-dialog-label"><button class="close-button" data-l10n-id="newtab-custom-close-button"></button><div></div><div class="home-section"><div id="shortcuts-section" class="section"><label class="switch"><input type="checkbox" id="shortcuts-toggle" checked="" preference="feeds.topsites" aria-labelledby="custom-shortcuts-title" aria-describedby="custom-shortcuts-subtitle" eventSource="TOP_SITES"/><span class="slider" role="presentation"></span></label><div><h2 id="custom-shortcuts-title" class="title"><label for="shortcuts-toggle" data-l10n-id="newtab-custom-shortcuts-title"></label></h2><p id="custom-shortcuts-subtitle" class="subtitle" data-l10n-id="newtab-custom-shortcuts-subtitle"></p><div class="more-info-top-wrapper"><div class="more-information"><select id="row-selector" class="selector" name="row-count" preference="topSitesRows" aria-labelledby="custom-shortcuts-title"><option selected="" value="1" data-l10n-id="newtab-custom-row-selector" data-l10n-args="{&quot;num&quot;: 1}"></option><option value="2" data-l10n-id="newtab-custom-row-selector" data-l10n-args="{&quot;num&quot;: 2}"></option><option value="3" data-l10n-id="newtab-custom-row-selector" data-l10n-args="{&quot;num&quot;: 3}"></option><option value="4" data-l10n-id="newtab-custom-row-selector" data-l10n-args="{&quot;num&quot;: 4}"></option></select><div class="check-wrapper" role="presentation"><input type="checkbox" id="sponsored-shortcuts" class="sponsored-checkbox" checked="" preference="showSponsoredTopSites" eventSource="SPONSORED_TOP_SITES"/><label class="sponsored" for="sponsored-shortcuts" data-l10n-id="newtab-custom-sponsored-sites"></label></div></div></div></div></div><div id="recent-section" class="section"><label class="switch"><input type="checkbox" id="highlights-toggle" preference="feeds.section.highlights" eventSource="HIGHLIGHTS" aria-labelledby="custom-recent-title" aria-describedby="custom-recent-subtitle"/><span class="slider" role="presentation"></span></label><div><h2 id="custom-recent-title" class="title"><label for="highlights-toggle" data-l10n-id="newtab-custom-recent-title"></label></h2><p id="custom-recent-subtitle" class="subtitle" data-l10n-id="newtab-custom-recent-subtitle"></p></div></div><span class="divider" role="separator"></span><div><button id="settings-link" class="external-link" data-l10n-id="newtab-custom-settings"></button></div></div></div></span><div class="outer-wrapper ds-outer-wrapper-breakpoint-override visible-logo"><main class=""><div class="non-collapsible-section"><div class="search-wrapper"><div class="logo-and-wordmark"><div class="logo"></div><div class="wordmark"></div></div><div class="search-inner-wrapper"><button class="search-handoff-button" data-l10n-id="newtab-search-box-handoff-input" data-l10n-args="{&quot;engine&quot;: &quot;Google&quot;}" tabindex="-1"><div class="fake-textbox" data-l10n-id="newtab-search-box-handoff-text" data-l10n-args="{&quot;engine&quot;: &quot;Google&quot;}"></div><input type="search" class="fake-editable" tabindex="-1" aria-hidden="true"/><div class="fake-caret"></div></button></div></div></div><div class="body-wrapper on"><div class="discovery-stream ds-layout"><div class="ds-column ds-column-12"><div class="ds-column-grid"><div><div class="ds-top-sites"><section class="collapsible-section top-sites" data-section-id="topsites"><div class="section-top-bar"><h3 class="section-title-container " style="visibility:hidden"><span class="section-title"><span data-l10n-id="newtab-section-header-topsites"></span></span><span class="learn-more-link-wrapper"></span></h3></div><div><ul class="top-sites-list"><li class="top-site-outer"><div class="top-site-inner"><a class="top-site-button" href="http://10.10.0.1/status" tabindex="0" draggable="true" data-is-sponsored-link="false"><div class="tile" aria-hidden="true"><div class="icon-wrapper" data-fallback="1"><div></div><div class="top-site-icon default-icon" data-fallback="" style="background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAMESURBVDiNXZPNa1xlFMZ/73vnzr3pZCZxYr7GuEkXiWAElyGpTYugWCyouC2ujNGQpVAoVFsLblwUVyYRDUKtH/9BrNZNWgvRCTHphOlwJyRqkzSBzOTeuXOn7z1unKHxB2dz4Hl4zuEcVS6XAdqAT5VSryql+l3XpVarYYxBRBAR4jgmjmOMMXvGmEVjzCXgkfI8L2NZ1u/pdPpko9HAGIPv+7S3t7dETQMRwRhDFEVEUbRrjBnRSqlrWuuTD/95SDKZxBjDz7duYYwhmUxiWRZaayzLwrIsEokEjuNg23aPiMxq13Xfrlar/LS4iG3bpFIp7v12j73dXVKpFABKKZoopZ40fEU7jpMNw5Dl5WWCIKCzs5PNzU1u/3Ib13V53GgcGwVARNBao7UWHcdxvauri41CgfwfeQCGhof4cn4eQUhnMhhjWsI4jp9M81jXajXJ5XLYts13N28CMDU1xf31+1y7+gkdHR2t3TQTHMPzvIqIyMeXPxINUiwWRUTk6pUrAsj83LyIiPhBIJ7ntapYLMrq6mqFUqlUCcNQCoWCtLsn5OUzZ6XJB1PvCyDvXLggGxsbrb7v+7K1vS0rKysVa2Zm5mIYhs7g4CBJx+GLuVn+3v6L18+f57Vz5xjIPcO3N27wzdcL3L1zl9KDB+zs7CAiZDKZyJqenr6otXYATk+cxiuV+GphgfXVP5k4e4ZTL53i3fcm6evvJwgCwrBOMpmkt7eXdDodUSgU6uVyWTzPk6AWSBAErei53j6Zm52Vw0pF/s/W1pbk8/lAra2tPXJdtyuRSGCMobu7mxOpFD9+/wOfX7/O0p0lhoeGGRsb4/mREXr7+hh4doBcLsfR0VHdmpycHAZe1FqjlKJarRLWaoyOjvLGW28yPj7OU9ksvu9Tr4dYlkVPdw/pjgxhGP6q8vl8t1Jq3bbtpxOJROts4zimra2NbFcWx3H+e6SYRhRxcHDA/v5+DXguAewZY14wxnymtZ7QWrc3TaIo4vDw8NjdxHEcGGOWgA+VUpv/AoS7yB0iHKMMAAAAAElFTkSuQmCC)"></div></div></div><div class="title"><span dir="auto">10.10.0.1<span class="sponsored-label" data-l10n-id="newtab-topsite-sponsored"></span></span></div></a><div><button aria-haspopup="true" data-l10n-id="newtab-menu-content-tooltip" data-l10n-args="{&quot;title&quot;:&quot;10.10.0.1&quot;}" class="context-menu-button icon"></button></div><div class="topsite-impression-observer"></div></div></li><li class="top-site-outer"><div class="top-site-inner"><a class="top-site-button" href="https://manjaro.org/" tabindex="0" draggable="true" data-is-sponsored-link="false"><div class="tile" aria-hidden="true"><div class="icon-wrapper" data-fallback="m"><div class="top-site-icon rich-icon" style="background-image:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iMTk5Ljk5OCIgaGVpZ2h0PSIyMDAuMDA4Ij48c3ZnIHZlcnNpb249IjEuMiIgdmlld0JveD0iMCAwIDE5OS45OTc5OSAyMDAuMDA4IiBpZD0iU3ZnanNTdmcxMDAzIiBzb2RpcG9kaTpkb2NuYW1lPSJsb2dvLnN2ZyIgd2lkdGg9IjE5OS45OTgiIGhlaWdodD0iMjAwLjAwOCIgaW5rc2NhcGU6dmVyc2lvbj0iMS4yLjIgKGIwYTg0ODY1NDEsIDIwMjItMTItMDEpIiB4bWxuczppbmtzY2FwZT0iaHR0cDovL3d3dy5pbmtzY2FwZS5vcmcvbmFtZXNwYWNlcy9pbmtzY2FwZSIgeG1sbnM6c29kaXBvZGk9Imh0dHA6Ly9zb2RpcG9kaS5zb3VyY2Vmb3JnZS5uZXQvRFREL3NvZGlwb2RpLTAuZHRkIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnN2Zz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxkZWZzIGlkPSJTdmdqc0RlZnMxMDAyIj48L2RlZnM+CiAgPHNvZGlwb2RpOm5hbWVkdmlldyBpZD0iU3ZnanNTb2RpcG9kaTpuYW1lZHZpZXcxMDAxIiBwYWdlY29sb3I9IiNmZmZmZmYiIGJvcmRlcmNvbG9yPSIjY2NjY2NjIiBib3JkZXJvcGFjaXR5PSIxIiBpbmtzY2FwZTpzaG93cGFnZXNoYWRvdz0iMCIgaW5rc2NhcGU6cGFnZW9wYWNpdHk9IjEiIGlua3NjYXBlOnBhZ2VjaGVja2VyYm9hcmQ9IjAiIGlua3NjYXBlOmRlc2tjb2xvcj0iI2QxZDFkMSIgc2hvd2dyaWQ9ImZhbHNlIiBpbmtzY2FwZTp6b29tPSIwLjU2MjU3NDQ5IiBpbmtzY2FwZTpjeD0iMTAwLjQzMTE0IiBpbmtzY2FwZTpjeT0iMTM3Ljc1OTUzIiBpbmtzY2FwZTp3aW5kb3ctd2lkdGg9IjE1MDMiIGlua3NjYXBlOndpbmRvdy1oZWlnaHQ9IjkzMyIgaW5rc2NhcGU6d2luZG93LXg9IjAiIGlua3NjYXBlOndpbmRvdy15PSIwIiBpbmtzY2FwZTp3aW5kb3ctbWF4aW1pemVkPSIxIiBpbmtzY2FwZTpjdXJyZW50LWxheWVyPSJzdmc4Ij48L3NvZGlwb2RpOm5hbWVkdmlldz4KICA8cGF0aCBkPSJNIDE4LjE4MiwwLjAwNCBDIDguMTA5LDAuMDA0IDAsOC4xMTMxIDAsMTguMTg2IHYgMTYzLjY0IGMgMCwxMC4wNzMgOC4xMDkxLDE4LjE4MiAxOC4xODIsMTguMTgyIEggNTQuNTQ2IFYgNTQuNTU4IGggNzIuNzI3IFYgMC4wMTMgWiBtIDEyNy4yNywwIHYgMjAwIGggMzYuMzY0IGMgMTAuMDczLDAgMTguMTgyLC04LjEwOTEgMTguMTgyLC0xOC4xODIgViAxOC4xODIgQyAxOTkuOTk4LDguMTA5IDE5MS44ODg5LDAgMTgxLjgxNiwwIFogTSA3Mi43MjUsNzIuNzMxIHYgMTI3LjI3IEggMTI3LjI3IFYgNzIuNzMxIFoiIGZpbGw9IiMzNWJmYTQiIGZpbGwtcnVsZT0iZXZlbm9kZCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjkuMDkwOSIgc3R5bGU9InBhaW50LW9yZGVyOnN0cm9rZSBmaWxsIG1hcmtlcnMiIGlkPSJTdmdqc1BhdGgxMDAwIj48L3BhdGg+Cjwvc3ZnPjxzdHlsZT5AbWVkaWEgKHByZWZlcnMtY29sb3Itc2NoZW1lOiBsaWdodCkgeyA6cm9vdCB7IGZpbHRlcjogbm9uZTsgfSB9Cjwvc3R5bGU+PC9zdmc+)"></div></div></div><div class="title"><span dir="auto">manjaro<span class="sponsored-label" data-l10n-id="newtab-topsite-sponsored"></span></span></div></a><div><button aria-haspopup="true" data-l10n-id="newtab-menu-content-tooltip" data-l10n-args="{&quot;title&quot;:&quot;manjaro&quot;}" class="context-menu-button icon"></button></div><div class="topsite-impression-observer"></div></div></li><li class="top-site-outer"><div class="top-site-inner"><a class="top-site-button" href="https://forum.manjaro.org/t/uninstall-manjaro/73153/3" tabindex="0" draggable="true" data-is-sponsored-link="false"><div class="tile" aria-hidden="true"><div class="icon-wrapper" data-fallback="f"><div class="top-site-icon rich-icon" style="background-image:url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeG1sbnM6c3ZnanM9Imh0dHA6Ly9zdmdqcy5jb20vc3ZnanMiIHZlcnNpb249IjEuMSIgd2lkdGg9IjE5OS45OTgiIGhlaWdodD0iMjAwLjAwOCI+CiAgPHN2ZyB4bWxuczppbmtzY2FwZT0iaHR0cDovL3d3dy5pbmtzY2FwZS5vcmcvbmFtZXNwYWNlcy9pbmtzY2FwZSIgeG1sbnM6c29kaXBvZGk9Imh0dHA6Ly9zb2RpcG9kaS5zb3VyY2Vmb3JnZS5uZXQvRFREL3NvZGlwb2RpLTAuZHRkIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnN2Zz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMiIgdmlld0JveD0iMCAwIDE5OS45OTc5OSAyMDAuMDA4IiBpZD0iU3ZnanNTdmcxMDAzIiBzb2RpcG9kaTpkb2NuYW1lPSJsb2dvLnN2ZyIgd2lkdGg9IjE5OS45OTgiIGhlaWdodD0iMjAwLjAwOCIgaW5rc2NhcGU6dmVyc2lvbj0iMS4yLjIgKGIwYTg0ODY1NDEsIDIwMjItMTItMDEpIj4KICA8ZGVmcyBpZD0iU3ZnanNEZWZzMTAwMiIvPgogIAogIDxwYXRoIGQ9Ik0gMTguMTgyLDAuMDA0IEMgOC4xMDksMC4wMDQgMCw4LjExMzEgMCwxOC4xODYgdiAxNjMuNjQgYyAwLDEwLjA3MyA4LjEwOTEsMTguMTgyIDE4LjE4MiwxOC4xODIgSCA1NC41NDYgViA1NC41NTggaCA3Mi43MjcgViAwLjAxMyBaIG0gMTI3LjI3LDAgdiAyMDAgaCAzNi4zNjQgYyAxMC4wNzMsMCAxOC4xODIsLTguMTA5MSAxOC4xODIsLTE4LjE4MiBWIDE4LjE4MiBDIDE5OS45OTgsOC4xMDkgMTkxLjg4ODksMCAxODEuODE2LDAgWiBNIDcyLjcyNSw3Mi43MzEgdiAxMjcuMjcgSCAxMjcuMjcgViA3Mi43MzEgWiIgZmlsbD0iIzM1YmZhNCIgZmlsbC1ydWxlPSJldmVub2RkIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS13aWR0aD0iOS4wOTA5IiBzdHlsZT0icGFpbnQtb3JkZXI6c3Ryb2tlIGZpbGwgbWFya2VycyIgaWQ9IlN2Z2pzUGF0aDEwMDAiLz4KPC9zdmc+CiAgPHN0eWxlPkBtZWRpYSAocHJlZmVycy1jb2xvci1zY2hlbWU6IGxpZ2h0KSB7IDpyb290IHsgZmlsdGVyOiBub25lOyB9IH0KPC9zdHlsZT4KPC9zdmc+Cg==)"></div></div></div><div class="title"><span dir="auto">forum.manjaro<span class="sponsored-label" data-l10n-id="newtab-topsite-sponsored"></span></span></div></a><div><button aria-haspopup="true" data-l10n-id="newtab-menu-content-tooltip" data-l10n-args="{&quot;title&quot;:&quot;forum.manjaro&quot;}" class="context-menu-button icon"></button></div><div class="topsite-impression-observer"></div></div></li><li class="top-site-outer"><div class="top-site-inner"><a class="top-site-button" href="https://www.wikipedia.org/" tabindex="0" draggable="true" data-is-sponsored-link="false"><div class="tile" aria-hidden="true"><div class="icon-wrapper" data-fallback="W"><div class="top-site-icon rich-icon" style="background-image:url(chrome://activity-stream/content/data/content/tippytop/images/wikipedia-org@2x.png)"></div></div></div><div class="title"><span dir="auto">Wikipedia<span class="sponsored-label" data-l10n-id="newtab-topsite-sponsored"></span></span></div></a><div><button aria-haspopup="true" data-l10n-id="newtab-menu-content-tooltip" data-l10n-args="{&quot;title&quot;:&quot;Wikipedia&quot;}" class="context-menu-button icon"></button></div><div class="topsite-impression-observer"></div></div></li><li class="top-site-outer"><div class="top-site-inner"><a class="top-site-button" href="https://www.youtube.com/" tabindex="0" draggable="true" data-is-sponsored-link="false"><div class="tile" aria-hidden="true"><div class="icon-wrapper" data-fallback="Y"><div class="top-site-icon rich-icon" style="background-image:url(chrome://activity-stream/content/data/content/tippytop/images/youtube-com@2x.png)"></div></div></div><div class="title"><span dir="auto">YouTube<span class="sponsored-label" data-l10n-id="newtab-topsite-sponsored"></span></span></div></a><div><button aria-haspopup="true" data-l10n-id="newtab-menu-content-tooltip" data-l10n-args="{&quot;title&quot;:&quot;YouTube&quot;}" class="context-menu-button icon"></button></div><div class="topsite-impression-observer"></div></div></li><li class="top-site-outer"><div class="top-site-inner"><a class="top-site-button" href="https://www.facebook.com/" tabindex="0" draggable="true" data-is-sponsored-link="false"><div class="tile" aria-hidden="true"><div class="icon-wrapper" data-fallback="F"><div class="top-site-icon rich-icon" style="background-image:url(chrome://activity-stream/content/data/content/tippytop/images/facebook-com@2x.png)"></div></div></div><div class="title"><span dir="auto">Facebook<span class="sponsored-label" data-l10n-id="newtab-topsite-sponsored"></span></span></div></a><div><button aria-haspopup="true" data-l10n-id="newtab-menu-content-tooltip" data-l10n-args="{&quot;title&quot;:&quot;Facebook&quot;}" class="context-menu-button icon"></button></div><div class="topsite-impression-observer"></div></div></li><li class="top-site-outer hide-for-narrow"><div class="top-site-inner"><a class="top-site-button" href="https://www.reddit.com/" tabindex="0" draggable="true" data-is-sponsored-link="false"><div class="tile" aria-hidden="true"><div class="icon-wrapper" data-fallback="R"><div class="top-site-icon rich-icon" style="background-image:url(chrome://activity-stream/content/data/content/tippytop/images/reddit-com@2x.png)"></div></div></div><div class="title"><span dir="auto">Reddit<span class="sponsored-label" data-l10n-id="newtab-topsite-sponsored"></span></span></div></a><div><button aria-haspopup="true" data-l10n-id="newtab-menu-content-tooltip" data-l10n-args="{&quot;title&quot;:&quot;Reddit&quot;}" class="context-menu-button icon"></button></div><div class="topsite-impression-observer"></div></div></li><li class="top-site-outer hide-for-narrow search-shortcut"><div class="top-site-inner"><a class="top-site-button" tabindex="0" draggable="true" data-is-sponsored-link="false"><div class="tile" aria-hidden="true"><div class="icon-wrapper" data-fallback="@"><div class="top-site-icon rich-icon" style="background-image:url(chrome://activity-stream/content/data/content/tippytop/images/amazon@2x.png)"></div></div><div class="top-site-icon search-topsite"></div></div><div class="title"><span dir="auto">@amazon<span class="sponsored-label" data-l10n-id="newtab-topsite-sponsored"></span></span></div></a><div><button aria-haspopup="true" data-l10n-id="newtab-menu-content-tooltip" data-l10n-args="{&quot;title&quot;:&quot;@amazon&quot;}" class="context-menu-button icon"></button></div><div class="topsite-impression-observer"></div></div></li></ul><div class="edit-topsites-wrapper"></div></div></section></div></div></div></div><style data-styles="[[null]]"></style></div><div class="discovery-stream ds-layout"><div class="ds-column ds-column-12"><div class="ds-column-grid"><div></div></div></div><style data-styles="[[null]]"></style></div></div></main></div></div>
+    </div>
+    <div id="footer-asrouter-container" role="presentation"></div>
+    <script src="about:home?jscache"></script>
+  </body>
+</html>
+window.__FROM_STARTUP_CACHE__ = true;
+window.__STARTUP_STATE__ = {
+	"TopSites": {
+		"initialized": true,
+		"rows": [
+			{
+				"bookmarkGuid": null,
+				"frecency": 2048,
+				"guid": "9Z2wSg1DV7Y0",
+				"lastVisitDate": 1689417991402,
+				"title": "Internet hotspot - Status",
+				"url": "http://10.10.0.1/status",
+				"type": "history",
+				"favicon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAMESURBVDiNXZPNa1xlFMZ/73vnzr3pZCZxYr7GuEkXiWAElyGpTYugWCyouC2ujNGQpVAoVFsLblwUVyYRDUKtH/9BrNZNWgvRCTHphOlwJyRqkzSBzOTeuXOn7z1unKHxB2dz4Hl4zuEcVS6XAdqAT5VSryql+l3XpVarYYxBRBAR4jgmjmOMMXvGmEVjzCXgkfI8L2NZ1u/pdPpko9HAGIPv+7S3t7dETQMRwRhDFEVEUbRrjBnRSqlrWuuTD/95SDKZxBjDz7duYYwhmUxiWRZaayzLwrIsEokEjuNg23aPiMxq13Xfrlar/LS4iG3bpFIp7v12j73dXVKpFABKKZoopZ40fEU7jpMNw5Dl5WWCIKCzs5PNzU1u/3Ib13V53GgcGwVARNBao7UWHcdxvauri41CgfwfeQCGhof4cn4eQUhnMhhjWsI4jp9M81jXajXJ5XLYts13N28CMDU1xf31+1y7+gkdHR2t3TQTHMPzvIqIyMeXPxINUiwWRUTk6pUrAsj83LyIiPhBIJ7ntapYLMrq6mqFUqlUCcNQCoWCtLsn5OUzZ6XJB1PvCyDvXLggGxsbrb7v+7K1vS0rKysVa2Zm5mIYhs7g4CBJx+GLuVn+3v6L18+f57Vz5xjIPcO3N27wzdcL3L1zl9KDB+zs7CAiZDKZyJqenr6otXYATk+cxiuV+GphgfXVP5k4e4ZTL53i3fcm6evvJwgCwrBOMpmkt7eXdDodUSgU6uVyWTzPk6AWSBAErei53j6Zm52Vw0pF/s/W1pbk8/lAra2tPXJdtyuRSGCMobu7mxOpFD9+/wOfX7/O0p0lhoeGGRsb4/mREXr7+hh4doBcLsfR0VHdmpycHAZe1FqjlKJarRLWaoyOjvLGW28yPj7OU9ksvu9Tr4dYlkVPdw/pjgxhGP6q8vl8t1Jq3bbtpxOJROts4zimra2NbFcWx3H+e6SYRhRxcHDA/v5+DXguAewZY14wxnymtZ7QWrc3TaIo4vDw8NjdxHEcGGOWgA+VUpv/AoS7yB0iHKMMAAAAAElFTkSuQmCC",
+				"faviconLength": 903,
+				"faviconRef": "",
+				"faviconSize": 16,
+				"smallFavicon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAMESURBVDiNXZPNa1xlFMZ/73vnzr3pZCZxYr7GuEkXiWAElyGpTYugWCyouC2ujNGQpVAoVFsLblwUVyYRDUKtH/9BrNZNWgvRCTHphOlwJyRqkzSBzOTeuXOn7z1unKHxB2dz4Hl4zuEcVS6XAdqAT5VSryql+l3XpVarYYxBRBAR4jgmjmOMMXvGmEVjzCXgkfI8L2NZ1u/pdPpko9HAGIPv+7S3t7dETQMRwRhDFEVEUbRrjBnRSqlrWuuTD/95SDKZxBjDz7duYYwhmUxiWRZaayzLwrIsEokEjuNg23aPiMxq13Xfrlar/LS4iG3bpFIp7v12j73dXVKpFABKKZoopZ40fEU7jpMNw5Dl5WWCIKCzs5PNzU1u/3Ib13V53GgcGwVARNBao7UWHcdxvauri41CgfwfeQCGhof4cn4eQUhnMhhjWsI4jp9M81jXajXJ5XLYts13N28CMDU1xf31+1y7+gkdHR2t3TQTHMPzvIqIyMeXPxINUiwWRUTk6pUrAsj83LyIiPhBIJ7ntapYLMrq6mqFUqlUCcNQCoWCtLsn5OUzZ6XJB1PvCyDvXLggGxsbrb7v+7K1vS0rKysVa2Zm5mIYhs7g4CBJx+GLuVn+3v6L18+f57Vz5xjIPcO3N27wzdcL3L1zl9KDB+zs7CAiZDKZyJqenr6otXYATk+cxiuV+GphgfXVP5k4e4ZTL53i3fcm6evvJwgCwrBOMpmkt7eXdDodUSgU6uVyWTzPk6AWSBAErei53j6Zm52Vw0pF/s/W1pbk8/lAra2tPXJdtyuRSGCMobu7mxOpFD9+/wOfX7/O0p0lhoeGGRsb4/mREXr7+hh4doBcLsfR0VHdmpycHAZe1FqjlKJarRLWaoyOjvLGW28yPj7OU9ksvu9Tr4dYlkVPdw/pjgxhGP6q8vl8t1Jq3bbtpxOJROts4zimra2NbFcWx3H+e6SYRhRxcHDA/v5+DXguAewZY14wxnymtZ7QWrc3TaIo4vDw8NjdxHEcGGOWgA+VUpv/AoS7yB0iHKMMAAAAAElFTkSuQmCC",
+				"smallFaviconLength": 903,
+				"smallFaviconRef": "",
+				"smallFaviconSize": 16,
+				"screenshot": "moz-page-thumb://thumbnails/?url=http%3A%2F%2F10.10.0.1%2Fstatus&revision=3382",
+				"hostname": "10.10.0.1",
+				"typedBonus": true
+			},
+			{
+				"bookmarkGuid": "DstB-D7FvkyJ",
+				"frecency": 1194,
+				"guid": "cAbpnXXGEx1T",
+				"lastVisitDate": 1689419293839,
+				"title": "Manjaro",
+				"url": "https://manjaro.org/",
+				"type": "history",
+				"favicon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iMTk5Ljk5OCIgaGVpZ2h0PSIyMDAuMDA4Ij48c3ZnIHZlcnNpb249IjEuMiIgdmlld0JveD0iMCAwIDE5OS45OTc5OSAyMDAuMDA4IiBpZD0iU3ZnanNTdmcxMDAzIiBzb2RpcG9kaTpkb2NuYW1lPSJsb2dvLnN2ZyIgd2lkdGg9IjE5OS45OTgiIGhlaWdodD0iMjAwLjAwOCIgaW5rc2NhcGU6dmVyc2lvbj0iMS4yLjIgKGIwYTg0ODY1NDEsIDIwMjItMTItMDEpIiB4bWxuczppbmtzY2FwZT0iaHR0cDovL3d3dy5pbmtzY2FwZS5vcmcvbmFtZXNwYWNlcy9pbmtzY2FwZSIgeG1sbnM6c29kaXBvZGk9Imh0dHA6Ly9zb2RpcG9kaS5zb3VyY2Vmb3JnZS5uZXQvRFREL3NvZGlwb2RpLTAuZHRkIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnN2Zz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxkZWZzIGlkPSJTdmdqc0RlZnMxMDAyIj48L2RlZnM+CiAgPHNvZGlwb2RpOm5hbWVkdmlldyBpZD0iU3ZnanNTb2RpcG9kaTpuYW1lZHZpZXcxMDAxIiBwYWdlY29sb3I9IiNmZmZmZmYiIGJvcmRlcmNvbG9yPSIjY2NjY2NjIiBib3JkZXJvcGFjaXR5PSIxIiBpbmtzY2FwZTpzaG93cGFnZXNoYWRvdz0iMCIgaW5rc2NhcGU6cGFnZW9wYWNpdHk9IjEiIGlua3NjYXBlOnBhZ2VjaGVja2VyYm9hcmQ9IjAiIGlua3NjYXBlOmRlc2tjb2xvcj0iI2QxZDFkMSIgc2hvd2dyaWQ9ImZhbHNlIiBpbmtzY2FwZTp6b29tPSIwLjU2MjU3NDQ5IiBpbmtzY2FwZTpjeD0iMTAwLjQzMTE0IiBpbmtzY2FwZTpjeT0iMTM3Ljc1OTUzIiBpbmtzY2FwZTp3aW5kb3ctd2lkdGg9IjE1MDMiIGlua3NjYXBlOndpbmRvdy1oZWlnaHQ9IjkzMyIgaW5rc2NhcGU6d2luZG93LXg9IjAiIGlua3NjYXBlOndpbmRvdy15PSIwIiBpbmtzY2FwZTp3aW5kb3ctbWF4aW1pemVkPSIxIiBpbmtzY2FwZTpjdXJyZW50LWxheWVyPSJzdmc4Ij48L3NvZGlwb2RpOm5hbWVkdmlldz4KICA8cGF0aCBkPSJNIDE4LjE4MiwwLjAwNCBDIDguMTA5LDAuMDA0IDAsOC4xMTMxIDAsMTguMTg2IHYgMTYzLjY0IGMgMCwxMC4wNzMgOC4xMDkxLDE4LjE4MiAxOC4xODIsMTguMTgyIEggNTQuNTQ2IFYgNTQuNTU4IGggNzIuNzI3IFYgMC4wMTMgWiBtIDEyNy4yNywwIHYgMjAwIGggMzYuMzY0IGMgMTAuMDczLDAgMTguMTgyLC04LjEwOTEgMTguMTgyLC0xOC4xODIgViAxOC4xODIgQyAxOTkuOTk4LDguMTA5IDE5MS44ODg5LDAgMTgxLjgxNiwwIFogTSA3Mi43MjUsNzIuNzMxIHYgMTI3LjI3IEggMTI3LjI3IFYgNzIuNzMxIFoiIGZpbGw9IiMzNWJmYTQiIGZpbGwtcnVsZT0iZXZlbm9kZCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjkuMDkwOSIgc3R5bGU9InBhaW50LW9yZGVyOnN0cm9rZSBmaWxsIG1hcmtlcnMiIGlkPSJTdmdqc1BhdGgxMDAwIj48L3BhdGg+Cjwvc3ZnPjxzdHlsZT5AbWVkaWEgKHByZWZlcnMtY29sb3Itc2NoZW1lOiBsaWdodCkgeyA6cm9vdCB7IGZpbHRlcjogbm9uZTsgfSB9Cjwvc3R5bGU+PC9zdmc+",
+				"faviconLength": 1656,
+				"faviconRef": "",
+				"faviconSize": 65535,
+				"smallFavicon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAADpXpUWHRSYXcgcHJvZmlsZSB0eXBlIGV4aWYAAHjarZZhcsMoDIX/6xR7BEtCCI6DwczsDfb4+7Bp2rhpm8Y1E4NlEA99CIe2//7t9A8uYREK5inmGBdcIYcsBY20HNdR8xL2+3xY3hp3drq9EJgUtR6PcZv9C+z2PsDDtK/3dvI6/aTpiG+O90vHzKM9+6XpSOWw83ymPMeV8GE58yd1up3Oz8/BEYxm8KdCsinrgvs+i0KBJi2oDXdRkTcLq+Numh/Hjm7NU/BurVPsljLteh8KWuLsEE8xmna2k11v08iZ2tvMdy80LL58vD7ErveWet+O1ZUQEalIc1FvS9lb6LgilLoPiyiOn6Hte8koCUusINZAc0WpxJkF0e4cuHHhztteV66QGGQTRy1SRXdbUpcsdYcSRuEurlkbgYhoBTWFWW5aeJ837/NVTpi5MXoKwxkPmudCj4yvlJuj3sfWZV7SLVbQJWNPQ8YgN+7oBSDcZ0xtj+9e6MO+WT6AVRC0PcwJCyzLerhYjd/3lu6cFf1sCbQcqcHepgOECHMbxLCCwBJZjSMvLuLMiGMCnwLlokFWEGAzaUwdbFQj4CQZc2OM895XTA4zjhaAMI1IkgRCBbBCMOwfDwl7qJhaIDOL5pYsW4kaQ7QYo8dxRhVXD24e3T159pI0hWQpJk8p5VSyZMURZjlmp5xyzqVg0gLXBaMLepSyyqprWG2Nq69pzWup2D41VKuxek0119KkaUP6t9icWmq5lY03bKUtbLbFzbe05a107LWuPXTrsXtPPfdyozap3lPjE7nvqfGkNoiFvZ+/U4PZ/c0Fj+PEBjMQk8Ag7oMANrQMZkviEGSQG8yWLEgKE1BjG3AaD2IgGDYW63xj907uW25k4Vfc5CtyNND9BTka6Ca5z9weUGtl/6LoDmhk4Yjpop0GiWCM72RevEI1j6dl+W1NJwN3LW00bVtzxwIaPzcPvSjgJ0cvC2L6I0EnR68LCvRHgu4dXRA0gv0ngu4cXRGEYD89MW+hH37XiKw6+aXP/Ws8ZCGPM0baoRHfZnzbd0fjb9qnmr568bB2fOQPvw1rFy91TiP4HOGU+2pY3dZjLWXztvK38uh5Od/Lozt9F+TRi3I+zUNfh+938uhJuj/W9CTdH+XRk3R/rOmVzfdIHr2y+R7VdDk3pjy6nBuzpsu5MeXR5dyY3ehybkx5dDk35jC6nBt3J6RfT126nBtfn5CvyaOLueH4D5fpfxywrYq2nMXNAAAACXBIWXMAAC4jAAAuIwF4pT92AAAAB3RJTUUH4gUWEBIBOR90LwAAADxJREFUOMtjNN0f85+BCHDacQkjNrVMDBSCYWAACzbBL2X3GSkygIGBgYGnSxE1xB2PMg7TQBw1YDAYAAAEsAt6WaMEdgAAAABJRU5ErkJggg==",
+				"smallFaviconLength": 1102,
+				"smallFaviconRef": "",
+				"smallFaviconSize": 16,
+				"hostname": "manjaro",
+				"typedBonus": true
+			},
+			{
+				"bookmarkGuid": null,
+				"frecency": 195,
+				"guid": "Uv7iUsASizbj",
+				"lastVisitDate": 1689418235356,
+				"title": "Uninstall Manjaro - Support - Manjaro Linux Forum",
+				"url": "https://forum.manjaro.org/t/uninstall-manjaro/73153/3",
+				"type": "history",
+				"favicon": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeG1sbnM6c3ZnanM9Imh0dHA6Ly9zdmdqcy5jb20vc3ZnanMiIHZlcnNpb249IjEuMSIgd2lkdGg9IjE5OS45OTgiIGhlaWdodD0iMjAwLjAwOCI+CiAgPHN2ZyB4bWxuczppbmtzY2FwZT0iaHR0cDovL3d3dy5pbmtzY2FwZS5vcmcvbmFtZXNwYWNlcy9pbmtzY2FwZSIgeG1sbnM6c29kaXBvZGk9Imh0dHA6Ly9zb2RpcG9kaS5zb3VyY2Vmb3JnZS5uZXQvRFREL3NvZGlwb2RpLTAuZHRkIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnN2Zz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMiIgdmlld0JveD0iMCAwIDE5OS45OTc5OSAyMDAuMDA4IiBpZD0iU3ZnanNTdmcxMDAzIiBzb2RpcG9kaTpkb2NuYW1lPSJsb2dvLnN2ZyIgd2lkdGg9IjE5OS45OTgiIGhlaWdodD0iMjAwLjAwOCIgaW5rc2NhcGU6dmVyc2lvbj0iMS4yLjIgKGIwYTg0ODY1NDEsIDIwMjItMTItMDEpIj4KICA8ZGVmcyBpZD0iU3ZnanNEZWZzMTAwMiIvPgogIAogIDxwYXRoIGQ9Ik0gMTguMTgyLDAuMDA0IEMgOC4xMDksMC4wMDQgMCw4LjExMzEgMCwxOC4xODYgdiAxNjMuNjQgYyAwLDEwLjA3MyA4LjEwOTEsMTguMTgyIDE4LjE4MiwxOC4xODIgSCA1NC41NDYgViA1NC41NTggaCA3Mi43MjcgViAwLjAxMyBaIG0gMTI3LjI3LDAgdiAyMDAgaCAzNi4zNjQgYyAxMC4wNzMsMCAxOC4xODIsLTguMTA5MSAxOC4xODIsLTE4LjE4MiBWIDE4LjE4MiBDIDE5OS45OTgsOC4xMDkgMTkxLjg4ODksMCAxODEuODE2LDAgWiBNIDcyLjcyNSw3Mi43MzEgdiAxMjcuMjcgSCAxMjcuMjcgViA3Mi43MzEgWiIgZmlsbD0iIzM1YmZhNCIgZmlsbC1ydWxlPSJldmVub2RkIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS13aWR0aD0iOS4wOTA5IiBzdHlsZT0icGFpbnQtb3JkZXI6c3Ryb2tlIGZpbGwgbWFya2VycyIgaWQ9IlN2Z2pzUGF0aDEwMDAiLz4KPC9zdmc+CiAgPHN0eWxlPkBtZWRpYSAocHJlZmVycy1jb2xvci1zY2hlbWU6IGxpZ2h0KSB7IDpyb290IHsgZmlsdGVyOiBub25lOyB9IH0KPC9zdHlsZT4KPC9zdmc+Cg==",
+				"faviconLength": 1174,
+				"faviconRef": "",
+				"faviconSize": 65535,
+				"smallFavicon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAADpXpUWHRSYXcgcHJvZmlsZSB0eXBlIGV4aWYAAHjarZZhcsMoDIX/6xR7BEtCCI6DwczsDfb4+7Bp2rhpm8Y1E4NlEA99CIe2//7t9A8uYREK5inmGBdcIYcsBY20HNdR8xL2+3xY3hp3drq9EJgUtR6PcZv9C+z2PsDDtK/3dvI6/aTpiG+O90vHzKM9+6XpSOWw83ymPMeV8GE58yd1up3Oz8/BEYxm8KdCsinrgvs+i0KBJi2oDXdRkTcLq+Numh/Hjm7NU/BurVPsljLteh8KWuLsEE8xmna2k11v08iZ2tvMdy80LL58vD7ErveWet+O1ZUQEalIc1FvS9lb6LgilLoPiyiOn6Hte8koCUusINZAc0WpxJkF0e4cuHHhztteV66QGGQTRy1SRXdbUpcsdYcSRuEurlkbgYhoBTWFWW5aeJ837/NVTpi5MXoKwxkPmudCj4yvlJuj3sfWZV7SLVbQJWNPQ8YgN+7oBSDcZ0xtj+9e6MO+WT6AVRC0PcwJCyzLerhYjd/3lu6cFf1sCbQcqcHepgOECHMbxLCCwBJZjSMvLuLMiGMCnwLlokFWEGAzaUwdbFQj4CQZc2OM895XTA4zjhaAMI1IkgRCBbBCMOwfDwl7qJhaIDOL5pYsW4kaQ7QYo8dxRhVXD24e3T159pI0hWQpJk8p5VSyZMURZjlmp5xyzqVg0gLXBaMLepSyyqprWG2Nq69pzWup2D41VKuxek0119KkaUP6t9icWmq5lY03bKUtbLbFzbe05a107LWuPXTrsXtPPfdyozap3lPjE7nvqfGkNoiFvZ+/U4PZ/c0Fj+PEBjMQk8Ag7oMANrQMZkviEGSQG8yWLEgKE1BjG3AaD2IgGDYW63xj907uW25k4Vfc5CtyNND9BTka6Ca5z9weUGtl/6LoDmhk4Yjpop0GiWCM72RevEI1j6dl+W1NJwN3LW00bVtzxwIaPzcPvSjgJ0cvC2L6I0EnR68LCvRHgu4dXRA0gv0ngu4cXRGEYD89MW+hH37XiKw6+aXP/Ws8ZCGPM0baoRHfZnzbd0fjb9qnmr568bB2fOQPvw1rFy91TiP4HOGU+2pY3dZjLWXztvK38uh5Od/Lozt9F+TRi3I+zUNfh+938uhJuj/W9CTdH+XRk3R/rOmVzfdIHr2y+R7VdDk3pjy6nBuzpsu5MeXR5dyY3ehybkx5dDk35jC6nBt3J6RfT126nBtfn5CvyaOLueH4D5fpfxywrYq2nMXNAAAACXBIWXMAAC4jAAAuIwF4pT92AAAAB3RJTUUH4gUWEBIBOR90LwAAADxJREFUOMtjNN0f85+BCHDacQkjNrVMDBSCYWAACzbBL2X3GSkygIGBgYGnSxE1xB2PMg7TQBw1YDAYAAAEsAt6WaMEdgAAAABJRU5ErkJggg==",
+				"smallFaviconLength": 1102,
+				"smallFaviconRef": "",
+				"smallFaviconSize": 16,
+				"hostname": "forum.manjaro",
+				"typedBonus": true
+			},
+			{
+				"isDefault": true,
+				"url": "https://www.wikipedia.org/",
+				"hostname": "wikipedia",
+				"sendAttributionRequest": false,
+				"label": "Wikipedia",
+				"tippyTopIcon": "chrome://activity-stream/content/data/content/tippytop/images/wikipedia-org@2x.png",
+				"smallFavicon": "chrome://activity-stream/content/data/content/tippytop/favicons/wikipedia-org.ico",
+				"typedBonus": true
+			},
+			{
+				"isDefault": true,
+				"url": "https://www.youtube.com/",
+				"hostname": "youtube",
+				"sendAttributionRequest": false,
+				"label": "YouTube",
+				"tippyTopIcon": "chrome://activity-stream/content/data/content/tippytop/images/youtube-com@2x.png",
+				"smallFavicon": "chrome://activity-stream/content/data/content/tippytop/favicons/youtube-com.png",
+				"typedBonus": true
+			},
+			{
+				"isDefault": true,
+				"url": "https://www.facebook.com/",
+				"hostname": "facebook",
+				"sendAttributionRequest": false,
+				"label": "Facebook",
+				"tippyTopIcon": "chrome://activity-stream/content/data/content/tippytop/images/facebook-com@2x.png",
+				"smallFavicon": "chrome://activity-stream/content/data/content/tippytop/favicons/facebook-com.ico",
+				"typedBonus": true
+			},
+			{
+				"isDefault": true,
+				"url": "https://www.reddit.com/",
+				"hostname": "reddit",
+				"sendAttributionRequest": false,
+				"label": "Reddit",
+				"tippyTopIcon": "chrome://activity-stream/content/data/content/tippytop/images/reddit-com@2x.png",
+				"smallFavicon": "chrome://activity-stream/content/data/content/tippytop/favicons/reddit-com.png",
+				"typedBonus": true
+			},
+			{
+				"isDefault": true,
+				"url": "https://www.amazon.com/",
+				"hostname": "amazon",
+				"sendAttributionRequest": false,
+				"label": "@amazon",
+				"searchTopSite": true,
+				"tippyTopIcon": "chrome://activity-stream/content/data/content/tippytop/images/amazon@2x.png",
+				"smallFavicon": "chrome://activity-stream/content/data/content/tippytop/favicons/amazon.ico",
+				"typedBonus": true
+			}
+		],
+		"editForm": null,
+		"showSearchShortcutsForm": false,
+		"searchShortcuts": [
+			{
+				"keyword": "@google",
+				"shortURL": "google",
+				"url": "https://google.com",
+				"tippyTopIcon": "chrome://activity-stream/content/data/content/tippytop/images/google-com@2x.png",
+				"smallFavicon": "chrome://activity-stream/content/data/content/tippytop/favicons/google-com.ico"
+			},
+			{
+				"keyword": "@amazon",
+				"shortURL": "amazon",
+				"url": "https://amazon.com",
+				"tippyTopIcon": "chrome://activity-stream/content/data/content/tippytop/images/amazon@2x.png",
+				"smallFavicon": "chrome://activity-stream/content/data/content/tippytop/favicons/amazon.ico"
+			},
+			{
+				"keyword": "@bing",
+				"shortURL": "bing",
+				"url": "https://bing.com",
+				"tippyTopIcon": "chrome://activity-stream/content/data/content/tippytop/images/bing-com@2x.svg",
+				"smallFavicon": "chrome://activity-stream/content/data/content/tippytop/favicons/bing-com.ico"
+			},
+			{
+				"keyword": "@duckduckgo",
+				"shortURL": "duckduckgo",
+				"url": "https://duckduckgo.com",
+				"tippyTopIcon": "chrome://activity-stream/content/data/content/tippytop/images/duckduckgo-com@2x.svg",
+				"smallFavicon": "chrome://activity-stream/content/data/content/tippytop/favicons/duckduckgo-com.ico"
+			},
+			{
+				"keyword": "@wikipedia",
+				"shortURL": "wikipedia",
+				"url": "https://wikipedia.org",
+				"tippyTopIcon": "chrome://activity-stream/content/data/content/tippytop/images/wikipedia-org@2x.png",
+				"smallFavicon": "chrome://activity-stream/content/data/content/tippytop/favicons/wikipedia-org.ico"
+			}
+		],
+		"pref": {
+			"collapsed": false
+		}
+	},
+	"App": {
+		"initialized": true,
+		"locale": "en-US",
+		"isForStartupCache": true,
+		"customizeMenuVisible": false,
+		"links": [
+			{
+				"bookmarkGuid": null,
+				"frecency": 2048,
+				"guid": "9Z2wSg1DV7Y0",
+				"lastVisitDate": 1689417991402,
+				"title": "Internet hotspot - Status",
+				"url": "http://10.10.0.1/status",
+				"type": "history",
+				"favicon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAMESURBVDiNXZPNa1xlFMZ/73vnzr3pZCZxYr7GuEkXiWAElyGpTYugWCyouC2ujNGQpVAoVFsLblwUVyYRDUKtH/9BrNZNWgvRCTHphOlwJyRqkzSBzOTeuXOn7z1unKHxB2dz4Hl4zuEcVS6XAdqAT5VSryql+l3XpVarYYxBRBAR4jgmjmOMMXvGmEVjzCXgkfI8L2NZ1u/pdPpko9HAGIPv+7S3t7dETQMRwRhDFEVEUbRrjBnRSqlrWuuTD/95SDKZxBjDz7duYYwhmUxiWRZaayzLwrIsEokEjuNg23aPiMxq13Xfrlar/LS4iG3bpFIp7v12j73dXVKpFABKKZoopZ40fEU7jpMNw5Dl5WWCIKCzs5PNzU1u/3Ib13V53GgcGwVARNBao7UWHcdxvauri41CgfwfeQCGhof4cn4eQUhnMhhjWsI4jp9M81jXajXJ5XLYts13N28CMDU1xf31+1y7+gkdHR2t3TQTHMPzvIqIyMeXPxINUiwWRUTk6pUrAsj83LyIiPhBIJ7ntapYLMrq6mqFUqlUCcNQCoWCtLsn5OUzZ6XJB1PvCyDvXLggGxsbrb7v+7K1vS0rKysVa2Zm5mIYhs7g4CBJx+GLuVn+3v6L18+f57Vz5xjIPcO3N27wzdcL3L1zl9KDB+zs7CAiZDKZyJqenr6otXYATk+cxiuV+GphgfXVP5k4e4ZTL53i3fcm6evvJwgCwrBOMpmkt7eXdDodUSgU6uVyWTzPk6AWSBAErei53j6Zm52Vw0pF/s/W1pbk8/lAra2tPXJdtyuRSGCMobu7mxOpFD9+/wOfX7/O0p0lhoeGGRsb4/mREXr7+hh4doBcLsfR0VHdmpycHAZe1FqjlKJarRLWaoyOjvLGW28yPj7OU9ksvu9Tr4dYlkVPdw/pjgxhGP6q8vl8t1Jq3bbtpxOJROts4zimra2NbFcWx3H+e6SYRhRxcHDA/v5+DXguAewZY14wxnymtZ7QWrc3TaIo4vDw8NjdxHEcGGOWgA+VUpv/AoS7yB0iHKMMAAAAAElFTkSuQmCC",
+				"faviconLength": 903,
+				"faviconRef": "",
+				"faviconSize": 16,
+				"smallFavicon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAMESURBVDiNXZPNa1xlFMZ/73vnzr3pZCZxYr7GuEkXiWAElyGpTYugWCyouC2ujNGQpVAoVFsLblwUVyYRDUKtH/9BrNZNWgvRCTHphOlwJyRqkzSBzOTeuXOn7z1unKHxB2dz4Hl4zuEcVS6XAdqAT5VSryql+l3XpVarYYxBRBAR4jgmjmOMMXvGmEVjzCXgkfI8L2NZ1u/pdPpko9HAGIPv+7S3t7dETQMRwRhDFEVEUbRrjBnRSqlrWuuTD/95SDKZxBjDz7duYYwhmUxiWRZaayzLwrIsEokEjuNg23aPiMxq13Xfrlar/LS4iG3bpFIp7v12j73dXVKpFABKKZoopZ40fEU7jpMNw5Dl5WWCIKCzs5PNzU1u/3Ib13V53GgcGwVARNBao7UWHcdxvauri41CgfwfeQCGhof4cn4eQUhnMhhjWsI4jp9M81jXajXJ5XLYts13N28CMDU1xf31+1y7+gkdHR2t3TQTHMPzvIqIyMeXPxINUiwWRUTk6pUrAsj83LyIiPhBIJ7ntapYLMrq6mqFUqlUCcNQCoWCtLsn5OUzZ6XJB1PvCyDvXLggGxsbrb7v+7K1vS0rKysVa2Zm5mIYhs7g4CBJx+GLuVn+3v6L18+f57Vz5xjIPcO3N27wzdcL3L1zl9KDB+zs7CAiZDKZyJqenr6otXYATk+cxiuV+GphgfXVP5k4e4ZTL53i3fcm6evvJwgCwrBOMpmkt7eXdDodUSgU6uVyWTzPk6AWSBAErei53j6Zm52Vw0pF/s/W1pbk8/lAra2tPXJdtyuRSGCMobu7mxOpFD9+/wOfX7/O0p0lhoeGGRsb4/mREXr7+hh4doBcLsfR0VHdmpycHAZe1FqjlKJarRLWaoyOjvLGW28yPj7OU9ksvu9Tr4dYlkVPdw/pjgxhGP6q8vl8t1Jq3bbtpxOJROts4zimra2NbFcWx3H+e6SYRhRxcHDA/v5+DXguAewZY14wxnymtZ7QWrc3TaIo4vDw8NjdxHEcGGOWgA+VUpv/AoS7yB0iHKMMAAAAAElFTkSuQmCC",
+				"smallFaviconLength": 903,
+				"smallFaviconRef": "",
+				"smallFaviconSize": 16,
+				"screenshot": "moz-page-thumb://thumbnails/?url=http%3A%2F%2F10.10.0.1%2Fstatus&revision=3382",
+				"hostname": "10.10.0.1",
+				"typedBonus": true
+			},
+			{
+				"bookmarkGuid": "DstB-D7FvkyJ",
+				"frecency": 1194,
+				"guid": "cAbpnXXGEx1T",
+				"lastVisitDate": 1689419293839,
+				"title": "Manjaro",
+				"url": "https://manjaro.org/",
+				"type": "history",
+				"favicon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iMTk5Ljk5OCIgaGVpZ2h0PSIyMDAuMDA4Ij48c3ZnIHZlcnNpb249IjEuMiIgdmlld0JveD0iMCAwIDE5OS45OTc5OSAyMDAuMDA4IiBpZD0iU3ZnanNTdmcxMDAzIiBzb2RpcG9kaTpkb2NuYW1lPSJsb2dvLnN2ZyIgd2lkdGg9IjE5OS45OTgiIGhlaWdodD0iMjAwLjAwOCIgaW5rc2NhcGU6dmVyc2lvbj0iMS4yLjIgKGIwYTg0ODY1NDEsIDIwMjItMTItMDEpIiB4bWxuczppbmtzY2FwZT0iaHR0cDovL3d3dy5pbmtzY2FwZS5vcmcvbmFtZXNwYWNlcy9pbmtzY2FwZSIgeG1sbnM6c29kaXBvZGk9Imh0dHA6Ly9zb2RpcG9kaS5zb3VyY2Vmb3JnZS5uZXQvRFREL3NvZGlwb2RpLTAuZHRkIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnN2Zz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxkZWZzIGlkPSJTdmdqc0RlZnMxMDAyIj48L2RlZnM+CiAgPHNvZGlwb2RpOm5hbWVkdmlldyBpZD0iU3ZnanNTb2RpcG9kaTpuYW1lZHZpZXcxMDAxIiBwYWdlY29sb3I9IiNmZmZmZmYiIGJvcmRlcmNvbG9yPSIjY2NjY2NjIiBib3JkZXJvcGFjaXR5PSIxIiBpbmtzY2FwZTpzaG93cGFnZXNoYWRvdz0iMCIgaW5rc2NhcGU6cGFnZW9wYWNpdHk9IjEiIGlua3NjYXBlOnBhZ2VjaGVja2VyYm9hcmQ9IjAiIGlua3NjYXBlOmRlc2tjb2xvcj0iI2QxZDFkMSIgc2hvd2dyaWQ9ImZhbHNlIiBpbmtzY2FwZTp6b29tPSIwLjU2MjU3NDQ5IiBpbmtzY2FwZTpjeD0iMTAwLjQzMTE0IiBpbmtzY2FwZTpjeT0iMTM3Ljc1OTUzIiBpbmtzY2FwZTp3aW5kb3ctd2lkdGg9IjE1MDMiIGlua3NjYXBlOndpbmRvdy1oZWlnaHQ9IjkzMyIgaW5rc2NhcGU6d2luZG93LXg9IjAiIGlua3NjYXBlOndpbmRvdy15PSIwIiBpbmtzY2FwZTp3aW5kb3ctbWF4aW1pemVkPSIxIiBpbmtzY2FwZTpjdXJyZW50LWxheWVyPSJzdmc4Ij48L3NvZGlwb2RpOm5hbWVkdmlldz4KICA8cGF0aCBkPSJNIDE4LjE4MiwwLjAwNCBDIDguMTA5LDAuMDA0IDAsOC4xMTMxIDAsMTguMTg2IHYgMTYzLjY0IGMgMCwxMC4wNzMgOC4xMDkxLDE4LjE4MiAxOC4xODIsMTguMTgyIEggNTQuNTQ2IFYgNTQuNTU4IGggNzIuNzI3IFYgMC4wMTMgWiBtIDEyNy4yNywwIHYgMjAwIGggMzYuMzY0IGMgMTAuMDczLDAgMTguMTgyLC04LjEwOTEgMTguMTgyLC0xOC4xODIgViAxOC4xODIgQyAxOTkuOTk4LDguMTA5IDE5MS44ODg5LDAgMTgxLjgxNiwwIFogTSA3Mi43MjUsNzIuNzMxIHYgMTI3LjI3IEggMTI3LjI3IFYgNzIuNzMxIFoiIGZpbGw9IiMzNWJmYTQiIGZpbGwtcnVsZT0iZXZlbm9kZCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjkuMDkwOSIgc3R5bGU9InBhaW50LW9yZGVyOnN0cm9rZSBmaWxsIG1hcmtlcnMiIGlkPSJTdmdqc1BhdGgxMDAwIj48L3BhdGg+Cjwvc3ZnPjxzdHlsZT5AbWVkaWEgKHByZWZlcnMtY29sb3Itc2NoZW1lOiBsaWdodCkgeyA6cm9vdCB7IGZpbHRlcjogbm9uZTsgfSB9Cjwvc3R5bGU+PC9zdmc+",
+				"faviconLength": 1656,
+				"faviconRef": "",
+				"faviconSize": 65535,
+				"smallFavicon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAADpXpUWHRSYXcgcHJvZmlsZSB0eXBlIGV4aWYAAHjarZZhcsMoDIX/6xR7BEtCCI6DwczsDfb4+7Bp2rhpm8Y1E4NlEA99CIe2//7t9A8uYREK5inmGBdcIYcsBY20HNdR8xL2+3xY3hp3drq9EJgUtR6PcZv9C+z2PsDDtK/3dvI6/aTpiG+O90vHzKM9+6XpSOWw83ymPMeV8GE58yd1up3Oz8/BEYxm8KdCsinrgvs+i0KBJi2oDXdRkTcLq+Numh/Hjm7NU/BurVPsljLteh8KWuLsEE8xmna2k11v08iZ2tvMdy80LL58vD7ErveWet+O1ZUQEalIc1FvS9lb6LgilLoPiyiOn6Hte8koCUusINZAc0WpxJkF0e4cuHHhztteV66QGGQTRy1SRXdbUpcsdYcSRuEurlkbgYhoBTWFWW5aeJ837/NVTpi5MXoKwxkPmudCj4yvlJuj3sfWZV7SLVbQJWNPQ8YgN+7oBSDcZ0xtj+9e6MO+WT6AVRC0PcwJCyzLerhYjd/3lu6cFf1sCbQcqcHepgOECHMbxLCCwBJZjSMvLuLMiGMCnwLlokFWEGAzaUwdbFQj4CQZc2OM895XTA4zjhaAMI1IkgRCBbBCMOwfDwl7qJhaIDOL5pYsW4kaQ7QYo8dxRhVXD24e3T159pI0hWQpJk8p5VSyZMURZjlmp5xyzqVg0gLXBaMLepSyyqprWG2Nq69pzWup2D41VKuxek0119KkaUP6t9icWmq5lY03bKUtbLbFzbe05a107LWuPXTrsXtPPfdyozap3lPjE7nvqfGkNoiFvZ+/U4PZ/c0Fj+PEBjMQk8Ag7oMANrQMZkviEGSQG8yWLEgKE1BjG3AaD2IgGDYW63xj907uW25k4Vfc5CtyNND9BTka6Ca5z9weUGtl/6LoDmhk4Yjpop0GiWCM72RevEI1j6dl+W1NJwN3LW00bVtzxwIaPzcPvSjgJ0cvC2L6I0EnR68LCvRHgu4dXRA0gv0ngu4cXRGEYD89MW+hH37XiKw6+aXP/Ws8ZCGPM0baoRHfZnzbd0fjb9qnmr568bB2fOQPvw1rFy91TiP4HOGU+2pY3dZjLWXztvK38uh5Od/Lozt9F+TRi3I+zUNfh+938uhJuj/W9CTdH+XRk3R/rOmVzfdIHr2y+R7VdDk3pjy6nBuzpsu5MeXR5dyY3ehybkx5dDk35jC6nBt3J6RfT126nBtfn5CvyaOLueH4D5fpfxywrYq2nMXNAAAACXBIWXMAAC4jAAAuIwF4pT92AAAAB3RJTUUH4gUWEBIBOR90LwAAADxJREFUOMtjNN0f85+BCHDacQkjNrVMDBSCYWAACzbBL2X3GSkygIGBgYGnSxE1xB2PMg7TQBw1YDAYAAAEsAt6WaMEdgAAAABJRU5ErkJggg==",
+				"smallFaviconLength": 1102,
+				"smallFaviconRef": "",
+				"smallFaviconSize": 16,
+				"hostname": "manjaro",
+				"typedBonus": true
+			},
+			{
+				"bookmarkGuid": null,
+				"frecency": 195,
+				"guid": "Uv7iUsASizbj",
+				"lastVisitDate": 1689418235356,
+				"title": "Uninstall Manjaro - Support - Manjaro Linux Forum",
+				"url": "https://forum.manjaro.org/t/uninstall-manjaro/73153/3",
+				"type": "history",
+				"favicon": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeG1sbnM6c3ZnanM9Imh0dHA6Ly9zdmdqcy5jb20vc3ZnanMiIHZlcnNpb249IjEuMSIgd2lkdGg9IjE5OS45OTgiIGhlaWdodD0iMjAwLjAwOCI+CiAgPHN2ZyB4bWxuczppbmtzY2FwZT0iaHR0cDovL3d3dy5pbmtzY2FwZS5vcmcvbmFtZXNwYWNlcy9pbmtzY2FwZSIgeG1sbnM6c29kaXBvZGk9Imh0dHA6Ly9zb2RpcG9kaS5zb3VyY2Vmb3JnZS5uZXQvRFREL3NvZGlwb2RpLTAuZHRkIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnN2Zz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMiIgdmlld0JveD0iMCAwIDE5OS45OTc5OSAyMDAuMDA4IiBpZD0iU3ZnanNTdmcxMDAzIiBzb2RpcG9kaTpkb2NuYW1lPSJsb2dvLnN2ZyIgd2lkdGg9IjE5OS45OTgiIGhlaWdodD0iMjAwLjAwOCIgaW5rc2NhcGU6dmVyc2lvbj0iMS4yLjIgKGIwYTg0ODY1NDEsIDIwMjItMTItMDEpIj4KICA8ZGVmcyBpZD0iU3ZnanNEZWZzMTAwMiIvPgogIAogIDxwYXRoIGQ9Ik0gMTguMTgyLDAuMDA0IEMgOC4xMDksMC4wMDQgMCw4LjExMzEgMCwxOC4xODYgdiAxNjMuNjQgYyAwLDEwLjA3MyA4LjEwOTEsMTguMTgyIDE4LjE4MiwxOC4xODIgSCA1NC41NDYgViA1NC41NTggaCA3Mi43MjcgViAwLjAxMyBaIG0gMTI3LjI3LDAgdiAyMDAgaCAzNi4zNjQgYyAxMC4wNzMsMCAxOC4xODIsLTguMTA5MSAxOC4xODIsLTE4LjE4MiBWIDE4LjE4MiBDIDE5OS45OTgsOC4xMDkgMTkxLjg4ODksMCAxODEuODE2LDAgWiBNIDcyLjcyNSw3Mi43MzEgdiAxMjcuMjcgSCAxMjcuMjcgViA3Mi43MzEgWiIgZmlsbD0iIzM1YmZhNCIgZmlsbC1ydWxlPSJldmVub2RkIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS13aWR0aD0iOS4wOTA5IiBzdHlsZT0icGFpbnQtb3JkZXI6c3Ryb2tlIGZpbGwgbWFya2VycyIgaWQ9IlN2Z2pzUGF0aDEwMDAiLz4KPC9zdmc+CiAgPHN0eWxlPkBtZWRpYSAocHJlZmVycy1jb2xvci1zY2hlbWU6IGxpZ2h0KSB7IDpyb290IHsgZmlsdGVyOiBub25lOyB9IH0KPC9zdHlsZT4KPC9zdmc+Cg==",
+				"faviconLength": 1174,
+				"faviconRef": "",
+				"faviconSize": 65535,
+				"smallFavicon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAADpXpUWHRSYXcgcHJvZmlsZSB0eXBlIGV4aWYAAHjarZZhcsMoDIX/6xR7BEtCCI6DwczsDfb4+7Bp2rhpm8Y1E4NlEA99CIe2//7t9A8uYREK5inmGBdcIYcsBY20HNdR8xL2+3xY3hp3drq9EJgUtR6PcZv9C+z2PsDDtK/3dvI6/aTpiG+O90vHzKM9+6XpSOWw83ymPMeV8GE58yd1up3Oz8/BEYxm8KdCsinrgvs+i0KBJi2oDXdRkTcLq+Numh/Hjm7NU/BurVPsljLteh8KWuLsEE8xmna2k11v08iZ2tvMdy80LL58vD7ErveWet+O1ZUQEalIc1FvS9lb6LgilLoPiyiOn6Hte8koCUusINZAc0WpxJkF0e4cuHHhztteV66QGGQTRy1SRXdbUpcsdYcSRuEurlkbgYhoBTWFWW5aeJ837/NVTpi5MXoKwxkPmudCj4yvlJuj3sfWZV7SLVbQJWNPQ8YgN+7oBSDcZ0xtj+9e6MO+WT6AVRC0PcwJCyzLerhYjd/3lu6cFf1sCbQcqcHepgOECHMbxLCCwBJZjSMvLuLMiGMCnwLlokFWEGAzaUwdbFQj4CQZc2OM895XTA4zjhaAMI1IkgRCBbBCMOwfDwl7qJhaIDOL5pYsW4kaQ7QYo8dxRhVXD24e3T159pI0hWQpJk8p5VSyZMURZjlmp5xyzqVg0gLXBaMLepSyyqprWG2Nq69pzWup2D41VKuxek0119KkaUP6t9icWmq5lY03bKUtbLbFzbe05a107LWuPXTrsXtPPfdyozap3lPjE7nvqfGkNoiFvZ+/U4PZ/c0Fj+PEBjMQk8Ag7oMANrQMZkviEGSQG8yWLEgKE1BjG3AaD2IgGDYW63xj907uW25k4Vfc5CtyNND9BTka6Ca5z9weUGtl/6LoDmhk4Yjpop0GiWCM72RevEI1j6dl+W1NJwN3LW00bVtzxwIaPzcPvSjgJ0cvC2L6I0EnR68LCvRHgu4dXRA0gv0ngu4cXRGEYD89MW+hH37XiKw6+aXP/Ws8ZCGPM0baoRHfZnzbd0fjb9qnmr568bB2fOQPvw1rFy91TiP4HOGU+2pY3dZjLWXztvK38uh5Od/Lozt9F+TRi3I+zUNfh+938uhJuj/W9CTdH+XRk3R/rOmVzfdIHr2y+R7VdDk3pjy6nBuzpsu5MeXR5dyY3ehybkx5dDk35jC6nBt3J6RfT126nBtfn5CvyaOLueH4D5fpfxywrYq2nMXNAAAACXBIWXMAAC4jAAAuIwF4pT92AAAAB3RJTUUH4gUWEBIBOR90LwAAADxJREFUOMtjNN0f85+BCHDacQkjNrVMDBSCYWAACzbBL2X3GSkygIGBgYGnSxE1xB2PMg7TQBw1YDAYAAAEsAt6WaMEdgAAAABJRU5ErkJggg==",
+				"smallFaviconLength": 1102,
+				"smallFaviconRef": "",
+				"smallFaviconSize": 16,
+				"hostname": "forum.manjaro",
+				"typedBonus": true
+			},
+			{
+				"isDefault": true,
+				"url": "https://www.wikipedia.org/",
+				"hostname": "wikipedia",
+				"sendAttributionRequest": false,
+				"label": "Wikipedia",
+				"tippyTopIcon": "chrome://activity-stream/content/data/content/tippytop/images/wikipedia-org@2x.png",
+				"smallFavicon": "chrome://activity-stream/content/data/content/tippytop/favicons/wikipedia-org.ico",
+				"typedBonus": true
+			},
+			{
+				"isDefault": true,
+				"url": "https://www.youtube.com/",
+				"hostname": "youtube",
+				"sendAttributionRequest": false,
+				"label": "YouTube",
+				"tippyTopIcon": "chrome://activity-stream/content/data/content/tippytop/images/youtube-com@2x.png",
+				"smallFavicon": "chrome://activity-stream/content/data/content/tippytop/favicons/youtube-com.png",
+				"typedBonus": true
+			},
+			{
+				"isDefault": true,
+				"url": "https://www.facebook.com/",
+				"hostname": "facebook",
+				"sendAttributionRequest": false,
+				"label": "Facebook",
+				"tippyTopIcon": "chrome://activity-stream/content/data/content/tippytop/images/facebook-com@2x.png",
+				"smallFavicon": "chrome://activity-stream/content/data/content/tippytop/favicons/facebook-com.ico",
+				"typedBonus": true
+			},
+			{
+				"isDefault": true,
+				"url": "https://www.reddit.com/",
+				"hostname": "reddit",
+				"sendAttributionRequest": false,
+				"label": "Reddit",
+				"tippyTopIcon": "chrome://activity-stream/content/data/content/tippytop/images/reddit-com@2x.png",
+				"smallFavicon": "chrome://activity-stream/content/data/content/tippytop/favicons/reddit-com.png",
+				"typedBonus": true
+			},
+			{
+				"isDefault": true,
+				"url": "https://www.amazon.com/",
+				"hostname": "amazon",
+				"sendAttributionRequest": false,
+				"label": "@amazon",
+				"searchTopSite": true,
+				"tippyTopIcon": "chrome://activity-stream/content/data/content/tippytop/images/amazon@2x.png",
+				"smallFavicon": "chrome://activity-stream/content/data/content/tippytop/favicons/amazon.ico",
+				"typedBonus": true
+			}
+		],
+		"pref": {
+			"collapsed": false
+		}
+	},
+	"ASRouter": {
+		"initialized": false
+	},
+	"Snippets": {
+		"initialized": false
+	},
+	"Prefs": {
+		"initialized": true,
+		"values": {
+			"default.sites": "https://www.youtube.com/,https://www.facebook.com/,https://www.wikipedia.org/,https://www.reddit.com/,https://www.amazon.com/,https://twitter.com/",
+			"feeds.section.topstories.options": "{\"api_key_pref\":\"extensions.pocket.oAuthConsumerKey\",\"hidden\":true,\"provider_icon\":\"chrome://global/skin/icons/pocket.svg\",\"provider_name\":\"Pocket\",\"read_more_endpoint\":\"https://getpocket.com/explore/trending?src=fx_new_tab\",\"stories_endpoint\":\"https://getpocket.cdn.mozilla.net/v3/firefox/global-recs?version=3&consumer_key=$apiKey&locale_lang=en-US&feed_variant=default_spocs_off\",\"stories_referrer\":\"https://getpocket.com/recommendations\",\"topics_endpoint\":\"https://getpocket.cdn.mozilla.net/v3/firefox/trending-topics?version=2&consumer_key=$apiKey&locale_lang=en-US\",\"show_spocs\":false}",
+			"feeds.topsites": true,
+			"hideTopSitesTitle": false,
+			"showSponsored": true,
+			"showSponsoredTopSites": true,
+			"pocketCta": "{\"cta_button\":\"\",\"cta_text\":\"\",\"cta_url\":\"\",\"use_cta\":false}",
+			"showSearch": true,
+			"feeds.snippets": false,
+			"topSitesRows": 1,
+			"telemetry": true,
+			"telemetry.ut.events": false,
+			"telemetry.structuredIngestion.endpoint": "https://incoming.telemetry.mozilla.org/submit",
+			"section.highlights.includeVisited": true,
+			"section.highlights.includeBookmarks": true,
+			"section.highlights.includePocket": true,
+			"section.highlights.includeDownloads": true,
+			"section.highlights.rows": 1,
+			"section.topstories.rows": 1,
+			"sectionOrder": "topsites,topstories,highlights",
+			"improvesearch.noDefaultSearchTile": true,
+			"improvesearch.topSiteSearchShortcuts.searchEngines": "google",
+			"improvesearch.topSiteSearchShortcuts.havePinned": "",
+			"asrouter.devtoolsEnabled": false,
+			"asrouter.providers.onboarding": "{\"id\":\"onboarding\",\"type\":\"local\",\"localProvider\":\"OnboardingMessageProvider\",\"enabled\":true,\"exclude\":[]}",
+			"discoverystream.flight.blocks": "{}",
+			"discoverystream.config": "{\"api_key_pref\":\"extensions.pocket.oAuthConsumerKey\",\"collapsible\":true,\"enabled\":true,\"show_spocs\":false,\"hardcoded_layout\":true,\"layout_endpoint\":\"https://getpocket.cdn.mozilla.net/v3/newtab/layout?version=1&consumer_key=$apiKey&layout_variant=basic\"}",
+			"discoverystream.endpoints": "https://getpocket.cdn.mozilla.net/,https://firefox-api-proxy.cdn.mozilla.net/,https://spocs.getpocket.com/",
+			"discoverystream.isCollectionDismissible": true,
+			"discoverystream.onboardingExperience.dismissed": false,
+			"discoverystream.region-basic-layout": false,
+			"discoverystream.spoc.impressions": "{}",
+			"discoverystream.endpointSpocsClear": "https://spocs.getpocket.com/user",
+			"discoverystream.rec.impressions": "{}",
+			"showRecentSaves": true,
+			"feeds.aboutpreferences": true,
+			"feeds.newtabinit": true,
+			"feeds.places": true,
+			"feeds.prefs": true,
+			"feeds.sections": true,
+			"feeds.section.highlights": false,
+			"feeds.system.topstories": false,
+			"feeds.systemtick": true,
+			"feeds.telemetry": true,
+			"feeds.favicon": true,
+			"feeds.system.topsites": true,
+			"feeds.recommendationprovider": true,
+			"feeds.discoverystreamfeed": true,
+			"isPrivateBrowsingEnabled": true,
+			"platform": "linux",
+			"region": "UZ",
+			"fxa_endpoint": "https://accounts.firefox.com/",
+			"appUpdateChannel": "release",
+			"improvesearch.topSiteSearchShortcuts": true,
+			"mayHaveSponsoredTopSites": true,
+			"improvesearch.handoffToAwesomebar": true,
+			"urlbar.placeholderName": "Google",
+			"featureConfig": {
+				"customizationMenuEnabled": null,
+				"topSitesContileEnabled": true
+			},
+			"pocketConfig": {
+				"spocPositions": "1,5,7,11,18,20",
+				"spocTopsitesPositions": "1",
+				"spocAdTypes": "",
+				"spocZoneIds": "",
+				"spocTopsitesAdTypes": "",
+				"spocTopsitesZoneIds": "",
+				"spocSiteId": "",
+				"widgetPositions": "",
+				"hybridLayout": false,
+				"hideCardBackground": false,
+				"fourCardLayout": false,
+				"newFooterSection": false,
+				"saveToPocketCard": true,
+				"saveToPocketCardRegions": "",
+				"hideDescriptions": false,
+				"hideDescriptionsRegions": "",
+				"compactGrid": false,
+				"compactImages": false,
+				"imageGradient": false,
+				"titleLines": 3,
+				"descLines": 3,
+				"onboardingExperience": false,
+				"essentialReadsHeader": false,
+				"editorsPicksHeader": false,
+				"recentSavesEnabled": false,
+				"readTime": true,
+				"newSponsoredLabel": false,
+				"sendToPocket": true,
+				"recsPersonalized": false,
+				"spocsPersonalized": true,
+				"spocsCacheTimeout": null,
+				"regionStoriesConfig": "US,DE,CA,GB,IE,CH,AT,BE,IN,FR,IT,ES",
+				"regionBffConfig": "FR,IT,ES",
+				"regionStoriesBlock": "",
+				"localeListConfig": "",
+				"regionSpocsConfig": "US,CA,DE,GB,FR,IT,ES",
+				"topSitesContileSovEnabled": false
+			},
+			"logowordmark.alwaysVisible": true,
+			"feeds.section.topstories": true,
+			"discoverystream.enabled": true,
+			"discoverystream.sponsored-collections.enabled": false,
+			"discoverystream.hardcoded-basic-layout": false,
+			"discoverystream.personalization.enabled": true,
+			"discoverystream.personalization.override": false,
+			"discoverystream.personalization.modelKeys": "nb_model_arts_and_entertainment, nb_model_autos_and_vehicles, nb_model_beauty_and_fitness, nb_model_blogging_resources_and_services, nb_model_books_and_literature, nb_model_business_and_industrial, nb_model_computers_and_electronics, nb_model_finance, nb_model_food_and_drink, nb_model_games, nb_model_health, nb_model_hobbies_and_leisure, nb_model_home_and_garden, nb_model_internet_and_telecom, nb_model_jobs_and_education, nb_model_law_and_government, nb_model_online_communities, nb_model_people_and_society, nb_model_pets_and_animals, nb_model_real_estate, nb_model_reference, nb_model_science, nb_model_shopping, nb_model_sports, nb_model_travel",
+			"discoverystream.spocs-endpoint": "",
+			"discoverystream.spocs-endpoint-query": "",
+			"newNewtabExperience.colors": "#0090ED,#FF4F5F,#2AC3A2,#FF7139,#A172FF,#FFA437,#FF2A8A"
+		}
+	},
+	"Dialog": {
+		"visible": false,
+		"data": {}
+	},
+	"Sections": [
+		{
+			"title": {
+				"id": "newtab-section-header-pocket",
+				"values": {
+					"provider": "Pocket"
+				}
+			},
+			"rows": [],
+			"enabled": false,
+			"id": "topstories",
+			"pref": {
+				"titleString": {
+					"id": "home-prefs-recommended-by-header",
+					"values": {
+						"provider": "Pocket"
+					}
+				},
+				"descString": {
+					"id": "home-prefs-recommended-by-description-new",
+					"values": {
+						"provider": "Pocket"
+					}
+				},
+				"nestedPrefs": [],
+				"learnMore": {
+					"link": {
+						"href": "https://getpocket.com/firefox/new_tab_learn_more",
+						"id": "home-prefs-recommended-by-learn-more"
+					}
+				},
+				"collapsed": false,
+				"feed": "feeds.section.topstories"
+			},
+			"shouldHidePref": true,
+			"eventSource": "TOP_STORIES",
+			"icon": "chrome://global/skin/icons/pocket.svg",
+			"learnMore": {
+				"link": {
+					"href": "https://getpocket.com/firefox/new_tab_learn_more",
+					"message": {
+						"id": "newtab-pocket-learn-more"
+					}
+				}
+			},
+			"compactCards": false,
+			"rowsPref": "section.topstories.rows",
+			"maxRows": 4,
+			"availableLinkMenuOptions": [
+				"CheckBookmarkOrArchive",
+				"CheckSavedToPocket",
+				"Separator",
+				"OpenInNewWindow",
+				"OpenInPrivateWindow",
+				"Separator",
+				"BlockUrl"
+			],
+			"emptyState": {
+				"message": {
+					"id": "newtab-empty-section-topstories",
+					"values": {
+						"provider": "Pocket"
+					}
+				},
+				"icon": "check"
+			},
+			"shouldSendImpressionStats": true,
+			"dedupeFrom": [
+				"highlights"
+			],
+			"options": {
+				"api_key_pref": "extensions.pocket.oAuthConsumerKey",
+				"hidden": true,
+				"provider_icon": "chrome://global/skin/icons/pocket.svg",
+				"provider_name": "Pocket",
+				"read_more_endpoint": "https://getpocket.com/explore/trending?src=fx_new_tab",
+				"stories_endpoint": "https://getpocket.cdn.mozilla.net/v3/firefox/global-recs?version=3&consumer_key=$apiKey&locale_lang=en-US&feed_variant=default_spocs_off",
+				"stories_referrer": "https://getpocket.com/recommendations",
+				"topics_endpoint": "https://getpocket.cdn.mozilla.net/v3/firefox/trending-topics?version=2&consumer_key=$apiKey&locale_lang=en-US",
+				"show_spocs": false
+			},
+			"contextMenuOptions": [
+				"CheckBookmarkOrArchive",
+				"CheckSavedToPocket",
+				"Separator",
+				"OpenInNewWindow",
+				"OpenInPrivateWindow",
+				"Separator",
+				"BlockUrl"
+			],
+			"initialized": false
+		},
+		{
+			"title": {
+				"id": "newtab-section-header-recent-activity"
+			},
+			"rows": [],
+			"enabled": false,
+			"id": "highlights",
+			"pref": {
+				"titleString": {
+					"id": "home-prefs-recent-activity-header"
+				},
+				"descString": {
+					"id": "home-prefs-recent-activity-description"
+				},
+				"nestedPrefs": [
+					{
+						"name": "section.highlights.includeVisited",
+						"titleString": "home-prefs-highlights-option-visited-pages"
+					},
+					{
+						"name": "section.highlights.includeBookmarks",
+						"titleString": "home-prefs-highlights-options-bookmarks"
+					},
+					{
+						"name": "section.highlights.includeDownloads",
+						"titleString": "home-prefs-highlights-option-most-recent-download"
+					},
+					{
+						"name": "section.highlights.includePocket",
+						"titleString": "home-prefs-highlights-option-saved-to-pocket",
+						"hidden": false
+					}
+				],
+				"collapsed": false,
+				"feed": "feeds.section.highlights"
+			},
+			"shouldHidePref": false,
+			"eventSource": "HIGHLIGHTS",
+			"icon": "chrome://global/skin/icons/highlights.svg",
+			"compactCards": true,
+			"rowsPref": "section.highlights.rows",
+			"maxRows": 4,
+			"emptyState": {
+				"message": {
+					"id": "newtab-empty-section-highlights"
+				},
+				"icon": "chrome://global/skin/icons/highlights.svg"
+			},
+			"shouldSendImpressionStats": false,
+			"options": {},
+			"initialized": false
+		}
+	],
+	"Pocket": {
+		"isUserLoggedIn": null,
+		"pocketCta": {},
+		"waitingForSpoc": true
+	},
+	"Personalization": {
+		"lastUpdated": null,
+		"initialized": false
+	},
+	"DiscoveryStream": {
+		"config": {
+			"api_key_pref": "extensions.pocket.oAuthConsumerKey",
+			"collapsible": true,
+			"enabled": true,
+			"show_spocs": false,
+			"hardcoded_layout": true,
+			"layout_endpoint": "https://getpocket.cdn.mozilla.net/v3/newtab/layout?version=1&consumer_key=40249-e88c401e1b1f2242d9e441c4&layout_variant=basic"
+		},
+		"layout": [
+			{
+				"width": 12,
+				"components": [
+					{
+						"type": "TopSites",
+						"header": {
+							"title": {
+								"id": "newtab-section-header-topsites"
+							}
+						},
+						"properties": {}
+					},
+					{
+						"type": "Message",
+						"essentialReadsHeader": false,
+						"editorsPicksHeader": false,
+						"header": {
+							"title": {
+								"id": "newtab-section-header-pocket",
+								"values": {
+									"provider": "Pocket"
+								}
+							},
+							"subtitle": "",
+							"link_text": {
+								"id": "newtab-pocket-learn-more"
+							},
+							"link_url": "https://getpocket.com/firefox/new_tab_learn_more",
+							"icon": "chrome://global/skin/icons/pocket.svg"
+						},
+						"properties": {},
+						"styles": {
+							".ds-message": "margin-bottom: -20px"
+						}
+					},
+					{
+						"type": "CardGrid",
+						"properties": {
+							"items": 21,
+							"hybridLayout": false,
+							"hideCardBackground": false,
+							"fourCardLayout": false,
+							"compactGrid": false,
+							"essentialReadsHeader": false,
+							"editorsPicksHeader": false,
+							"onboardingExperience": false
+						},
+						"widgets": {
+							"positions": [],
+							"data": [
+								{
+									"type": "TopicsWidget"
+								}
+							]
+						},
+						"cta_variant": "link",
+						"header": {
+							"title": ""
+						},
+						"placement": {
+							"name": "spocs",
+							"ad_types": [
+								3617
+							],
+							"zone_ids": [
+								217758,
+								217995
+							]
+						},
+						"feed": {
+							"embed_reference": null,
+							"url": "https://getpocket.cdn.mozilla.net/v3/firefox/global-recs?version=3&consumer_key=$apiKey&locale_lang=$locale&region=$region&count=30"
+						},
+						"spocs": {
+							"probability": 1,
+							"positions": [
+								{
+									"index": 1
+								},
+								{
+									"index": 5
+								},
+								{
+									"index": 7
+								},
+								{
+									"index": 11
+								},
+								{
+									"index": 18
+								},
+								{
+									"index": 20
+								}
+							]
+						}
+					},
+					{
+						"type": "Navigation",
+						"newFooterSection": false,
+						"properties": {
+							"alignment": "left-align",
+							"links": [
+								{
+									"name": "Self improvement",
+									"url": "https://getpocket.com/explore/self-improvement?utm_source=pocket-newtab"
+								},
+								{
+									"name": "Food",
+									"url": "https://getpocket.com/explore/food?utm_source=pocket-newtab"
+								},
+								{
+									"name": "Entertainment",
+									"url": "https://getpocket.com/explore/entertainment?utm_source=pocket-newtab"
+								},
+								{
+									"name": "Health & fitness",
+									"url": "https://getpocket.com/explore/health?utm_source=pocket-newtab"
+								},
+								{
+									"name": "Science",
+									"url": "https://getpocket.com/explore/science?utm_source=pocket-newtab"
+								},
+								{
+									"name": "More recommendations ‚Ä∫",
+									"url": "https://getpocket.com/explore?utm_source=pocket-newtab"
+								}
+							],
+							"extraLinks": [
+								{
+									"name": "Career",
+									"url": "https://getpocket.com/explore/career?utm_source=pocket-newtab"
+								},
+								{
+									"name": "Technology",
+									"url": "https://getpocket.com/explore/technology?utm_source=pocket-newtab"
+								}
+							],
+							"privacyNoticeURL": {
+								"url": "https://www.mozilla.org/privacy/firefox/#suggest-relevant-content",
+								"title": {
+									"id": "newtab-section-menu-privacy-notice"
+								}
+							}
+						},
+						"header": {
+							"title": {
+								"id": "newtab-pocket-read-more"
+							}
+						},
+						"styles": {
+							".ds-navigation": "margin-top: -10px;"
+						}
+					}
+				]
+			}
+		],
+		"lastUpdated": null,
+		"isPrivacyInfoModalVisible": false,
+		"isCollectionDismissible": true,
+		"feeds": {
+			"data": {},
+			"loaded": false
+		},
+		"spocs": {
+			"spocs_endpoint": "https://spocs.getpocket.com/spocs",
+			"lastUpdated": 1689420311410,
+			"data": {},
+			"loaded": true,
+			"frequency_caps": [],
+			"blocked": [],
+			"placements": []
+		},
+		"experimentData": {
+			"utmSource": "pocket-newtab"
+		},
+		"recentSavesData": [],
+		"isUserLoggedIn": false,
+		"recentSavesEnabled": false,
+		"pocketButtonEnabled": true,
+		"saveToPocketCard": true,
+		"hideDescriptions": false,
+		"compactImages": false,
+		"imageGradient": false,
+		"newSponsoredLabel": false,
+		"titleLines": 3,
+		"descLines": 3,
+		"readTime": true
+	},
+	"Search": {
+		"fakeFocus": false,
+		"hide": false
+	}
+};
+
+çDl%PÓ           d≤ÑtEÃNÅˇˇˇˇ       :about:home alt-data 1;16631,script version 20230711154437   ÁÑ

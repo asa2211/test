@@ -1,0 +1,13 @@
+9
+
+https://forum.manjaro.org/
+https://forum.manjaro.org/service-worker.js
+true
+{cfa0becc-1f1c-4417-a5ba-087443a3d14e}
+0
+1689418225308377
+1689418225309567
+1689418223880871
+0
+true
+#
